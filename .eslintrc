@@ -1,0 +1,39 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.eslint.json"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": ["function"],
+                "format": null,
+                "leadingUnderscore": "allow"
+            }
+        ],
+        "class-methods-use-this": [
+            "error",
+            {
+                "exceptMethods": [
+                    "_getId",
+                    "_getSortQuery",
+                    "_getLimitQuery",
+                    "_getSkipQuery",
+                    "_mapQueryOperator"
+                ]
+            }
+        ]
+    }
+}

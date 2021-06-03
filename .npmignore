@@ -1,0 +1,8 @@
+# .vscode directory
+.vscode
+
+# test directory
+test
+
+# nyc test coverage
+.nyc_output
