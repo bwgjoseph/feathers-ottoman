@@ -265,11 +265,14 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
     const cQuery = this._mapQueryOperator(query);
     const cOptions = this._getOptions(filters, 'find');
 
-    const result = await this.Model.find(cQuery, cOptions);
+    const [result, total] = await Promise.all([
+      this.Model.find(cQuery, cOptions),
+      Object.keys(paginate).length > 0 ? this.Model.count(cQuery) : -1,
+    ]);
 
-    if (Object.keys(paginate).length > 0) {
+    if (total >= 0) {
       return {
-        total: await this.Model.count(cQuery),
+        total,
         limit: filters.$limit,
         skip: filters.$skip || 0,
         data: result.rows,

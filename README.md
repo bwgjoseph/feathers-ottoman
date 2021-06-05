@@ -1,5 +1,8 @@
 # feathers-ottoman
 
+[![GitHub license](https://img.shields.io/github/license/bwgjoseph/feathers-ottoman?style=flat-square)](https://github.com/bwgjoseph/feathers-ottoman/blob/master/LICENSE)
+[![Download Status](https://img.shields.io/npm/dm/feathers-ottoman.svg?style=flat-square)](https://www.npmjs.com/package/feathers-ottoman)
+
 __IMPORTANT__: This is still in early development stage, please report any issue found
 
 This library is written against [ottoman-2.0.0-beta.1](https://github.com/couchbaselabs/node-ottoman). It is tested against [Couchbase 7.0 BETA](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html) and it should work with current version, [Couchbase 6.6](https://docs.couchbase.com/server/current/introduction/intro.html)
