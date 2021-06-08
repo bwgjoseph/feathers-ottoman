@@ -313,7 +313,7 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
 
   async _update(id: Id, data: T, params: Params = {}): Promise<T> {
     if (id === null) {
-      return Promise.reject(new BadRequest('Not replacing multiple records. Did you mean `patch`?'));
+      return Promise.reject(new BadRequest('You can not replace multiple instances. Did you mean \'patch\'?'));
     }
 
     const { filters, query } = this.filterQuery(params);
@@ -344,7 +344,7 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
       const { message } = await this.Model.updateMany(query, data, cOptions);
 
       if (message && message.success > 0) {
-        return entries.map((e) => _select({ ...e, ...data }, params, this.id));
+        return entries.map((e) => ({ ...e, ...data }));
       }
 
       throw new NotFound(`No record found for query ${query}`);
