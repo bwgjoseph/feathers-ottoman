@@ -7,6 +7,7 @@ import {
 } from 'ottoman';
 import { ModelOptions } from 'ottoman/lib/types/model/interfaces/create-model.interface';
 import { Service } from '../src/index';
+import customTestSuite from './methods.test';
 
 const testSuite = adapterTests([
   '.options',
@@ -160,107 +161,7 @@ describe('Feathers Ottoman Service', () => {
     testSuite(app, errors, 'posts-customid', 'customid');
   });
 
-  it('.update + multi', async () => {
-    try {
-      await app.service('posts').update(null, {});
-      throw new Error('Should never get here');
-    } catch (error) {
-      assert.strictEqual(error.name, 'BadRequest',
-        'You can not replace multiple instances. Did you mean \'patch\'');
-    }
-  });
-
-  it('.create + multi + $select', async () => {
-    const service = app.service('posts');
-    service.options.multi = ['create'];
-
-    const items = [
-      {
-        name: 'Gerald',
-        age: 18,
-      },
-      {
-        name: 'Herald',
-        age: 18,
-      },
-    ];
-
-    const data = await service.create(items, {
-      query: { $select: ['name'] },
-    });
-
-    assert.ok(Array.isArray(data), 'data is an array');
-    assert.ok(typeof data[0].id !== 'undefined', 'id is set');
-    assert.strictEqual(data[0].name, 'Gerald', 'first name matches');
-    assert.ok(typeof data[1].id !== 'undefined', 'id is set');
-    assert.strictEqual(data[1].name, 'Herald', 'second name macthes');
-    assert.ok(!data[0].age, 'data.age is falsy');
-    assert.ok(!data[1].age, 'data.age is falsy');
-
-    await service.remove(data[0].id);
-    await service.remove(data[1].id);
-
-    service.options.multi = [];
-  });
-
-  it('.patch + multi + $select', async () => {
-    const service = app.service('posts');
-    service.options.multi = ['patch'];
-
-    await service.create({ name: 'Dave', age: 29, created: true });
-    await service.create({ name: 'David', age: 3, created: true });
-
-    const data = await service.patch(null, { age: 2 }, {
-      query: { created: true, $select: ['age'] },
-    });
-
-    assert.strictEqual(data.length, 2, 'returned two entries');
-    assert.strictEqual(data[0].age, 2, 'First entry age was updated');
-    assert.strictEqual(data[1].age, 2, 'Second entry age was updated');
-    assert.ok(!data[0].name, 'data.name is falsy');
-    assert.ok(!data[1].name, 'data.name is falsy');
-
-    await service.remove(data[0].id);
-    await service.remove(data[1].id);
-
-    service.options.multi = [];
-  });
-
-  it('.remove + multi + $select', async () => {
-    const service = app.service('posts');
-    service.options.multi = ['remove'];
-
-    await service.create({ name: 'Dave', age: 29, created: true });
-    await service.create({ name: 'David', age: 3, created: true });
-
-    const data = await service.remove(null, {
-      query: { created: true, $select: ['name'] },
-    });
-
-    const names = data.map((person: any) => person.name);
-
-    assert.strictEqual(data.length, 2, 'returned two entries');
-    assert.ok(names.includes('Dave'), 'Dave removed');
-    assert.ok(names.includes('David'), 'David removed');
-    assert.ok(!data[0].age, 'data.age is falsy');
-    assert.ok(!data[1].age, 'data.age is falsy');
-
-    await service.remove(null);
-
-    service.options.multi = [];
-  });
-
-  it('.find + $ignoreCase filter', async () => {
-    const service = app.service('posts');
-
-    await service.create({ name: 'Dave', age: 29, created: true });
-
-    const q = { name: 'dave', $ignoreCase: true };
-    const data = await service.find({ query: q });
-
-    assert.strictEqual(data.length, 1, 'returned one entries');
-    assert.strictEqual(data[0].name, 'Dave');
-
-    await service.remove(data[0].id);
+  it('run custom test suite', () => {
+    customTestSuite(app, 'posts');
   });
 });
