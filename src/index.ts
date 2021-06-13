@@ -27,6 +27,14 @@ const _select = (data: any, params: any, ...args: any[]) => {
   return base(JSON.parse(JSON.stringify(data)));
 };
 
+/**
+ * Allow `$ignoreCase` as additional filters option
+ * See {@link https://ottomanjs.com/classes/findoptions.html#optional-ignorecase ignoreCase}
+ */
+const filterQueryOpts = {
+  filters: ['$ignoreCase'],
+};
+
 const _hasQueryDefined = (data: Record<string, any>): boolean => Object.keys(data).length > 0;
 
 // this.filterQuery returns { filters: {}, query: {}, paginate: {} }
@@ -131,7 +139,7 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
    * Maps $skip to skip
    *
    * @param filters filters
-   * @returns limit filters
+   * @returns skip filters
    */
   _getSkipQuery(filters: Filters): Query {
     const { $skip } = filters;
@@ -139,6 +147,20 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
     if (!$skip) return {};
 
     return { skip: $skip };
+  }
+
+  /**
+   * Maps $ignoreCase to ignoreCase
+   *
+   * @param filters filters
+   * @returns ignoreCase filters
+   */
+  _getIgnoreCaseQuery(filters: Filters): Query {
+    const { $ignoreCase } = filters;
+
+    if (!$ignoreCase) return {};
+
+    return { ignoreCase: $ignoreCase };
   }
 
   /**
@@ -257,11 +279,12 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
       ...this._getSortQuery(filters),
       ...this._getLimitQuery(filters),
       ...this._getSkipQuery(filters),
+      ...this._getIgnoreCaseQuery(filters),
     };
   }
 
   async _find(params: Params = {}): Promise<T | T[] | Paginated<T>> {
-    const { filters, paginate, query } = this.filterQuery(params);
+    const { filters, paginate, query } = this.filterQuery(params, filterQueryOpts);
     const cQuery = this._mapQueryOperator(query);
     const cOptions = this._getOptions(filters, 'find');
 

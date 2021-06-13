@@ -249,4 +249,18 @@ describe('Feathers Ottoman Service', () => {
 
     service.options.multi = [];
   });
+
+  it('.find + $ignoreCase filter', async () => {
+    const service = app.service('posts');
+
+    await service.create({ name: 'Dave', age: 29, created: true });
+
+    const q = { name: 'dave', $ignoreCase: true };
+    const data = await service.find({ query: q });
+
+    assert.strictEqual(data.length, 1, 'returned one entries');
+    assert.strictEqual(data[0].name, 'Dave');
+
+    await service.remove(data[0].id);
+  });
 });
