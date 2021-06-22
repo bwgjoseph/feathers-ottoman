@@ -29,7 +29,7 @@ const _select = (data: any, params: any, ...args: any[]) => {
 
 /**
  * Allow `$ignoreCase` as additional filters option
- * See {@link https://ottomanjs.com/classes/findoptions.html#optional-ignorecase ignoreCase}
+ * See {@link https://ottomanjs.com/classes/findoptions.html findOptions}
  */
 const filterQueryOpts = {
   filters: ['$ignoreCase'],
@@ -362,9 +362,10 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
     const { filters, query } = this.filterQuery(params);
     const cOptions = this._getOptions(filters);
 
-    if (id == null) {
+    if (id === null) {
+      const cQuery = this._mapQueryOperator(query);
       const entries = await this._find({ ...params, paginate: false }) as T[];
-      const { message } = await this.Model.updateMany(query, data, cOptions);
+      const { message } = await this.Model.updateMany(cQuery, data, cOptions);
 
       if (message && message.success > 0) {
         return entries.map((e) => ({ ...e, ...data }));
@@ -391,10 +392,11 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
   async _remove(id: NullableId, params: Params = {}): Promise<T | T[]> {
     const { query } = this.filterQuery(params);
 
-    if (id == null) {
+    if (id === null) {
+      const cQuery = this._mapQueryOperator(query);
       // get all current data before removing
       const allData = await this._find({ ...params, paginate: false }) as T[];
-      await this.Model.removeMany(query, this._options.ottoman);
+      await this.Model.removeMany(cQuery, this._options.ottoman);
 
       return allData;
     }

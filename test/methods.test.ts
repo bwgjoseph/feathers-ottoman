@@ -73,6 +73,23 @@ const customTestSuite = (app: any, serviceName: string): void => {
       service.options.multi = [];
     });
 
+    it('.patch + multi + $ne', async () => {
+      service.options.multi = ['patch'];
+
+      await service.create({ name: 'Dave', age: 29, created: true });
+      await service.create({ name: 'David', age: 3, created: true });
+
+      const data = await service.patch(null, { age: 10 }, {
+        query: { name: { $ne: 'Dave' } },
+      });
+
+      assert.strictEqual(data.length, 1);
+      assert.strictEqual(data[0].name, 'David');
+      assert.strictEqual(data[0].age, 10);
+
+      service.options.multi = [];
+    });
+
     it('.remove + multi + $select', async () => {
       service.options.multi = ['remove'];
 
@@ -90,6 +107,22 @@ const customTestSuite = (app: any, serviceName: string): void => {
       assert.ok(names.includes('David'), 'David removed');
       assert.ok(!data[0].age, 'data.age is falsy');
       assert.ok(!data[1].age, 'data.age is falsy');
+
+      service.options.multi = [];
+    });
+
+    it('.remove + multi + $ne', async () => {
+      service.options.multi = ['remove'];
+
+      await service.create({ name: 'Dave', age: 29, created: true });
+      await service.create({ name: 'David', age: 3, created: true });
+
+      const data = await service.remove(null, {
+        query: { name: { $ne: 'Dave' } },
+      });
+
+      assert.strictEqual(data.length, 1);
+      assert.strictEqual(data[0].name, 'David');
 
       service.options.multi = [];
     });
