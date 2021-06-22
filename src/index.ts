@@ -229,7 +229,8 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
    * @returns reconstructed query
    */
   _getQuery(id: string, params: Params): Query {
-    const { query } = this.filterQuery(params);
+    let { query } = this.filterQuery(params);
+    query = this._mapQueryOperator(query);
 
     if (id) {
       // Pass in both `id` and `query.id`

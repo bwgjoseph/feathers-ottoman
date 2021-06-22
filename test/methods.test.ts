@@ -15,13 +15,17 @@ const customTestSuite = (app: any, serviceName: string): void => {
       service.options.whitelist = [];
     });
 
-    it('.update + multi', async () => {
+    it('.get + id + query (id + $ne)', async () => {
+      const data = await service.create({ name: 'Dave', age: 29, created: true });
+
       try {
-        await service.update(null, {});
+        await service.get(data.id, {
+          query: { id: 'other', name: { $ne: 'Dave' } },
+        });
         throw new Error('Should never get here');
       } catch (error) {
-        assert.strictEqual(error.name, 'BadRequest',
-          'You can not replace multiple instances. Did you mean \'patch\'');
+        assert.strictEqual(error.name, 'NotFound',
+          `No record found for id ${data.id}`);
       }
     });
 
@@ -52,6 +56,44 @@ const customTestSuite = (app: any, serviceName: string): void => {
       assert.ok(!data[1].age, 'data.age is falsy');
 
       service.options.multi = [];
+    });
+
+    it('.update + multi', async () => {
+      try {
+        await service.update(null, {});
+        throw new Error('Should never get here');
+      } catch (error) {
+        assert.strictEqual(error.name, 'BadRequest',
+          'You can not replace multiple instances. Did you mean \'patch\'');
+      }
+    });
+
+    it('.update + id + query (id + $ne)', async () => {
+      const data = await service.create({ name: 'Dave', age: 29, created: true });
+
+      try {
+        await service.update(data.id, { name: 'joseph' }, {
+          query: { id: 'other', name: { $ne: 'Dave' } },
+        });
+        throw new Error('Should never get here');
+      } catch (error) {
+        assert.strictEqual(error.name, 'NotFound',
+          `No record found for id ${data.id}`);
+      }
+    });
+
+    it('.patch + id + query (id + $ne)', async () => {
+      const data = await service.create({ name: 'Dave', age: 29, created: true });
+
+      try {
+        await service.patch(data.id, { name: 'joseph' }, {
+          query: { id: 'other', name: { $ne: 'Dave' } },
+        });
+        throw new Error('Should never get here');
+      } catch (error) {
+        assert.strictEqual(error.name, 'NotFound',
+          `No record found for id ${data.id}`);
+      }
     });
 
     it('.patch + multi + $select', async () => {
@@ -88,6 +130,20 @@ const customTestSuite = (app: any, serviceName: string): void => {
       assert.strictEqual(data[0].age, 10);
 
       service.options.multi = [];
+    });
+
+    it('.remove + id + query (id + $ne)', async () => {
+      const data = await service.create({ name: 'Dave', age: 29, created: true });
+
+      try {
+        await service.remove(data.id, {
+          query: { id: 'other', name: { $ne: 'Dave' } },
+        });
+        throw new Error('Should never get here');
+      } catch (error) {
+        assert.strictEqual(error.name, 'NotFound',
+          `No record found for id ${data.id}`);
+      }
     });
 
     it('.remove + multi + $select', async () => {
