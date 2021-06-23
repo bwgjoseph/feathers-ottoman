@@ -3,9 +3,8 @@ import errors from '@feathersjs/errors';
 import feathers from '@feathersjs/feathers';
 import assert from 'assert';
 import {
-  getDefaultInstance, getModel, Ottoman, Schema, SearchConsistency,
+  getDefaultInstance, getModel, Ottoman, Schema, SearchConsistency, ModelOptions,
 } from 'ottoman';
-import { ModelOptions } from 'ottoman/lib/types/model/interfaces/create-model.interface';
 import { Service } from '../src/index';
 import customTestSuite from './methods.test';
 
