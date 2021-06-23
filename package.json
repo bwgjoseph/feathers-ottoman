@@ -44,12 +44,12 @@
     "@feathersjs/adapter-commons": "^4.5.11",
     "@feathersjs/errors": "^4.5.11",
     "@feathersjs/feathers": "^4.5.11",
-    "ottoman": "2.0.0-beta.1"
+    "ottoman": "2.0.0-beta.2"
   },
   "devDependencies": {
     "@feathersjs/adapter-tests": "^4.5.11",
     "@types/mocha": "^8.2.2",
-    "@types/node": "^14.17.3",
+    "@types/node": "^14.17.4",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "eslint": "^7.29.0",
