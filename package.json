@@ -38,7 +38,8 @@
     "url": "git://github.com/bwgjoseph/feathers-ottoman.git"
   },
   "changelog": {
-    "repoUrl": "https://github.com/bwgjoseph/feathers-ottoman"
+    "repoUrl": "https://github.com/bwgjoseph/feathers-ottoman",
+    "nobody": true
   },
   "dependencies": {
     "@feathersjs/adapter-commons": "^4.5.11",
