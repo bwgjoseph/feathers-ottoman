@@ -5,7 +5,7 @@ import assert from 'assert';
 import {
   getDefaultInstance, getModel, Ottoman, Schema, SearchConsistency, ModelOptions,
 } from 'ottoman';
-import { Service } from '../src/index';
+import { OttomanServiceOptions, Service } from '../src/index';
 import customTestSuite from './methods.test';
 
 const testSuite = adapterTests([
@@ -128,7 +128,7 @@ describe('Feathers Ottoman Service', () => {
     await initOttoman();
     await removeDocuments();
 
-    const options = {
+    const options: OttomanServiceOptions = {
       Model: getModel('posts'),
       ottoman: {
         lean: true,
