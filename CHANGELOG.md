@@ -1,3 +1,13 @@
+##  0.3.0 (July 17, 2021)
+
+##### Build System / Dependencies
+
+*  upgrade dependencies ([6e46332a](https://github.com/bwgjoseph/feathers-ottoman/commit/6e46332ab6e9b6390feef7f81bad2482a9df6013))
+
+##### Refactors
+
+*  _mapQueryOperator to parse $in, $nin correctly ([a2fa6122](https://github.com/bwgjoseph/feathers-ottoman/commit/a2fa61222f3f498c61b619fb92554536b91dba68))
+
 ##  0.2.0 (June 30, 2021)
 
 ##### Build System / Dependencies
