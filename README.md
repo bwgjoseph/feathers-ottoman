@@ -5,7 +5,7 @@
 
 __IMPORTANT__: This is still in early development stage, please report any issue found
 
-This library is written against [ottoman-2.0.0-beta.2](https://github.com/couchbaselabs/node-ottoman). It is tested against [Couchbase 7.0 BETA](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html) and it should work with current version, [Couchbase 6.6](https://docs.couchbase.com/server/current/introduction/intro.html)
+This library is written against [ottoman-2.0.0-beta.3](https://github.com/couchbaselabs/node-ottoman). It is tested against [Couchbase 7.0 BETA](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html) and it should work with current version, [Couchbase 6.6](https://docs.couchbase.com/server/current/introduction/intro.html)
 
 ---
 
@@ -133,6 +133,15 @@ app.listen(3030).on('listening', () => console.log('feathers-ottoman example sta
 Run the example with `node .` and go to [localhost:3030/messages](http://localhost:3030/messages)
 
 For a complete example, take a look at [feathers-ottoman-demo](https://github.com/bwgjoseph/feathers-ottoman-demo) repository
+
+## Development
+
+Ensure index has been created before running the test
+
+```sql
+// Run on Couchbase UI > Query
+CREATE PRIMARY INDEX ON `default`:`testBucket`.`testpostscope`.`testpostcollection`
+```
 
 ## License
 

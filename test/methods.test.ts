@@ -281,19 +281,17 @@ const customTestSuite = (app: any, serviceName: string): void => {
       assert.strictEqual(data[0].name, 'Joseph');
     });
 
-    // See https://github.com/bwgjoseph/mongoose-vs-ottoman/issues/95
-    // it('.find + $isNull', async () => {
-    //   service.options.whitelist = ['$isNull'];
+    it('.find + $isNull', async () => {
+      service.options.whitelist = ['$isNull'];
 
-    //   const a = await service.create({ age: 10, created: true });
-    //   console.log(a);
-    //   const q = { name: { $isNull: true } };
-    //   const data = await service.find({ query: q });
+      await service.create({ name: null, age: 10, created: true });
+      const q = { name: { $isNull: true } };
+      const data = await service.find({ query: q });
 
-    //   assert.strictEqual(data.length, 1, 'returned one entries');
-    //   assert.strictEqual(data[0].name, 'Dave');
-
-    // });
+      assert.strictEqual(data.length, 1, 'returned one entries');
+      assert.strictEqual(data[0].name, null);
+      assert.strictEqual(data[0].age, 10);
+    });
 
     it('.find + $isNotNull', async () => {
       service.options.whitelist = ['$isNotNull'];

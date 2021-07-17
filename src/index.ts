@@ -168,11 +168,13 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
    *
    * Maps (Common API : Ottoman):
    *  - $ne : $neq
-   *  - $in : $in { search_expr: k, target_expr: v }
-   *  - $nin: $not: [{ $in { search_expr: k, target_expr: v } }]
+   *  - $nin: $notIn
    *
    * After mapping, the correct query construct can then be passed into
    * Ottoman API options so that it can process correctly
+   *
+   * Since `Ottoman.beta.3`, it simplify some of the operator query such as `$in, $notIn, etc`
+   * See {@link https://github.com/bwgjoseph/mongoose-vs-ottoman/issues/87 simplify operator usage}
    *
    * @param query query
    * @returns Query
@@ -184,10 +186,8 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
       .forEach(([k, v]: any) => {
         if (v && typeof v === 'object' && v.$ne) {
           keys.set(k, { $neq: v.$ne });
-        } else if (v && typeof v === 'object' && v.$in) {
-          keys.set(k, { $in: { search_expr: k, target_expr: v.$in } });
         } else if (v && typeof v === 'object' && v.$nin) {
-          keys.set(k, { $not: [{ $in: { search_expr: k, target_expr: v.$nin } }] });
+          keys.set(k, { $notIn: v.$nin });
         } else {
           keys.set(k, v);
         }
@@ -195,21 +195,9 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
 
     let operatorQuery = {};
 
-    // the query construct of $in and $nin in Ottoman is slightly
-    // where they key is not the `fieldname` but rather the `operator`
-    // for example, instead of `name: { $in: ['x'] }`
-    // it's `$in: { search_expr: 'name', target_expr: ['x'] }`
     keys.forEach((v, k) => {
       // assign default query
-      let q: Record<string, unknown> = { [k]: v };
-
-      if (v.$in) {
-        q = { $in: v.$in };
-      }
-
-      if (v.$not) {
-        q = { $not: v.$not };
-      }
+      const q: Record<string, unknown> = { [k]: v };
 
       operatorQuery = {
         ...operatorQuery,
