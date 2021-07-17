@@ -1,6 +1,6 @@
 {
   "name": "feathers-ottoman",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Feathers service adapter for the Ottoman ODM",
   "main": "dist/",
   "types": "dist/",
