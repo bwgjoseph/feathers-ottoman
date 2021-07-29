@@ -229,10 +229,10 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
           ...restQuery,
           $and: [
             {
-              id,
+              [this.id]: id,
             },
             {
-              id: query[this.id],
+              [this.id]: query[this.id],
             },
           ],
         };
@@ -240,7 +240,7 @@ class OttomanService<T = any> extends AdapterService<T> implements InternalServi
 
       return {
         ...query,
-        id,
+        [this.id]: id,
       };
     }
 
