@@ -1,3 +1,13 @@
+##  0.3.1 (July 29, 2021)
+
+##### Chores
+
+*  update README ([a4de57c1](https://github.com/bwgjoseph/feathers-ottoman/commit/a4de57c1b030eee042093fe5ed64f8e9fae26871))
+
+##### Bug Fixes
+
+*  _getQuery do not use this.id ([af1dd954](https://github.com/bwgjoseph/feathers-ottoman/commit/af1dd954b49bd99e6f87d0b0776fce7026d39766))
+
 ##  0.3.0 (July 17, 2021)
 
 ##### Build System / Dependencies
