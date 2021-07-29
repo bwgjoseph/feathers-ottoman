@@ -143,6 +143,18 @@ Ensure index has been created before running the test
 CREATE PRIMARY INDEX ON `default`:`testBucket`.`testpostscope`.`testpostcollection`
 ```
 
+## Release
+
+1. Update `package.json and package-lock.json` version
+2. Run `logchanges`
+3. Commit `CHANGELOG.md` [chore: update CHANGELOG for X.X.X]
+4. Commit `package.json and package-lock.json` [X.X.X]
+5. Git tag `vX.X.X`
+6. Run `npm publish --dry`
+7. Run `npm publish`
+8. Git push
+9. Create new release in Github
+
 ## License
 
 Copyright (c) 2021
