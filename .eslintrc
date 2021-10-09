@@ -5,6 +5,7 @@
         "project": "./tsconfig.eslint.json"
     },
     "plugins": [
+        "import",
         "@typescript-eslint"
     ],
     "extends": [
