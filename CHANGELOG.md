@@ -1,3 +1,10 @@
+##  0.4.0 (October 10, 2021)
+
+##### Build System / Dependencies
+
+*  upgrade to ottoman 2.0 (GA) ([c6cc0dd4](https://github.com/bwgjoseph/feathers-ottoman/commit/c6cc0dd44850f1bf3e406be82b5d05c69c1ba829))
+*  upgrade dependencies ([258a77eb](https://github.com/bwgjoseph/feathers-ottoman/commit/258a77eb1405e9a3863a63c6ab81639a685606e6))
+
 ##  0.3.1 (July 29, 2021)
 
 ##### Chores
