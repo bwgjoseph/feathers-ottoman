@@ -45,7 +45,7 @@
     "@feathersjs/adapter-commons": "^4.5.11",
     "@feathersjs/errors": "^4.5.11",
     "@feathersjs/feathers": "^4.5.11",
-    "ottoman": "2.0.0-beta.3"
+    "ottoman": "2.0.0"
   },
   "devDependencies": {
     "@feathersjs/adapter-tests": "^4.5.11",
