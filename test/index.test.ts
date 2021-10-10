@@ -3,7 +3,7 @@ import errors from '@feathersjs/errors';
 import feathers from '@feathersjs/feathers';
 import assert from 'assert';
 import {
-  getDefaultInstance, getModel, Ottoman, Schema, SearchConsistency, ModelOptions,
+  getDefaultInstance, QueryScanConsistency, getModel, Ottoman, Schema, SearchConsistency, ModelOptions,
 } from 'ottoman';
 import { OttomanServiceOptions, Service } from '../src/index';
 import customTestSuite from './methods.test';
@@ -83,7 +83,7 @@ const initOttoman = async () => {
     ottoman = new Ottoman({ collectionName: '_default' });
   }
 
-  ottoman.connect({
+  await ottoman.connect({
     connectionString: 'couchbase://localhost',
     bucketName: 'testBucket',
     username: 'user',
@@ -109,12 +109,24 @@ const initOttoman = async () => {
   return ottoman;
 };
 
+const initIndexes = async () => {
+  const createIndexQuery = `
+    CREATE PRIMARY INDEX ON \`testBucket\`.\`testpostscope\`.\`testpostcollection\`
+    `;
+
+  try {
+    await getDefaultInstance().cluster.query(createIndexQuery, { scanConsistency: QueryScanConsistency.RequestPlus });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const removeDocuments = async () => {
   const query = `
     DELETE FROM \`testBucket\`.testpostscope.testpostcollection
     `;
   try {
-    await getDefaultInstance().cluster.query(query, { scanConsistency: 'request_plus' });
+    await getDefaultInstance().cluster.query(query, { scanConsistency: QueryScanConsistency.RequestPlus });
   } catch (err) {
     console.error(err);
     throw err;
@@ -126,6 +138,7 @@ describe('Feathers Ottoman Service', () => {
 
   before(async () => {
     await initOttoman();
+    await initIndexes();
     await removeDocuments();
 
     const options: OttomanServiceOptions = {
