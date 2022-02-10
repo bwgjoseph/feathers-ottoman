@@ -5,7 +5,7 @@
 
 __IMPORTANT__: This is still in early development stage, please report any issue found
 
-This library is written against [ottoman-2.0.0](https://github.com/couchbaselabs/node-ottoman). It is tested against [Couchbase 7.0.1](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html)
+This library is written against [ottoman-2.1.0](https://github.com/couchbaselabs/node-ottoman) and is tested against [Couchbase 7.0.3](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html)
 
 ---
 
@@ -136,12 +136,25 @@ For a complete example, take a look at [feathers-ottoman-demo](https://github.co
 
 ## Development
 
-Ensure index has been created before running the test
+### Setup
 
-```sql
-// Run on Couchbase UI > Query
-CREATE PRIMARY INDEX ON `default`:`testBucket`.`testpostscope`.`testpostcollection`
-```
+1. Run `docker-compose up -d`
+2. Wait 5-10 sec for all services to fully initialized
+3. Launch a command prompt and run `docker exec -it feathers-couchbase bash`
+4. Once inside the container, run `cd scripts` then `./setup-couchbase.sh`, type `y` if prompted. See details below
+5. You can now access couchbase via `localhost:8091` and login using `admin:password`
+
+#### setup-couchbase script
+
+This script will initialize and setup couchbase node and cluster using the couchbase-cli, hence, no manual setup is required. It will:
+
+1. Initialize the node with `admin:password` credentials
+2. Initialize the cluster with only `data, index, query, fts` services enabled
+3. Create `user:password` with `full admin` rights
+4. Creates a bucket: `testBucket`
+5. Creates a scope: `testpostscope` under `testBucket`
+6. Creates a collection: `testpostcollection` under `testpostscope`
+7. Creates index on `testBucket` and `testBucket.testpostscope.testpostcollection`
 
 ## Release
 
@@ -157,6 +170,6 @@ CREATE PRIMARY INDEX ON `default`:`testBucket`.`testpostscope`.`testpostcollecti
 
 ## License
 
-Copyright (c) 2021
+Copyright (c) 2021-2022
 
 Licensed under the [MIT license](LICENSE).
