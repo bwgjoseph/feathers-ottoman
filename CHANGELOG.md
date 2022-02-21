@@ -1,3 +1,14 @@
+##  0.4.1 (February 21, 2022)
+
+##### Build System / Dependencies
+
+*  upgrade dependencies ([0785f164](https://github.com/bwgjoseph/feathers-ottoman/commit/0785f1649172a061c18d9fc2001647b1dfda7975))
+*  upgrade dependences and README ([ee659888](https://github.com/bwgjoseph/feathers-ottoman/commit/ee659888e6eac423afa8bed744ce802d2519242e))
+
+##### Chores
+
+*  add docker-compose script ([8b5ecfca](https://github.com/bwgjoseph/feathers-ottoman/commit/8b5ecfca8c7c6eb10b4d49226fe05fa19744eee1))
+
 ##  0.4.0 (October 10, 2021)
 
 ##### Build System / Dependencies
