@@ -5,7 +5,7 @@
 
 __IMPORTANT__: This is still in early development stage, please report any issue found
 
-This library is written against [ottoman-2.1.0](https://github.com/couchbaselabs/node-ottoman) and is tested against [Couchbase 7.0.3](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html)
+This library is written against [ottoman-2.2.1](https://github.com/couchbaselabs/node-ottoman) and is tested against [Couchbase 7.1.1](https://docs.couchbase.com/server/7.0/introduction/intro.html) which supports [scope and collection](https://docs.couchbase.com/server/7.0/learn/data/scopes-and-collections.html)
 
 ---
 

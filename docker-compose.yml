@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   couchbase:
-    image: couchbase:enterprise-7.0.3
+    image: couchbase:enterprise-7.1.1
     container_name: feathers-couchbase
     ports:
       - 8091:8091
