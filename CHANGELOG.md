@@ -1,3 +1,9 @@
+##  0.4.2 (July 26, 2022)
+
+##### Build System / Dependencies
+
+*  upgrade dependences and README ([f90dc9fe](https://github.com/bwgjoseph/feathers-ottoman/commit/f90dc9fee5ea6a2e7761cb1c57f8a7fad4ade18a))
+
 ##  0.4.1 (February 21, 2022)
 
 ##### Build System / Dependencies
